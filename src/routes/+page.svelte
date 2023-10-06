@@ -26,31 +26,13 @@
 		{#if !!videos}
 			<div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
 				{#each videos as video}
-					<div class={isSelected(video.id) ? 'col-span-2 row-span-2' : ''}>
-						<div class="flex flex-col items-center">
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div
-								on:click={() => onCardClick(video.id)}
-								class="card variant-ghost-primary w-full"
-								class:card-hover={!isSelected(video.id)}
-							>
-								{#if isSelected(video.id)}
-									<div class="w-full px-4">TODO: iconi sulkemiselle X</div>
-									<iframe
-										id="ytplayer"
-										title={video.name}
-										src="https://www.youtube.com/embed/{video.videoId}?autoplay=0"
-										frameborder="1"
-										allowfullscreen
-										class="w-full p-4 h-[550px]"
-									/>
-								{:else}
-									<img
-										src="https://img.youtube.com/vi/{video.videoId}/maxresdefault.jpg"
-										alt="{video.name} thumbnail"
-									/>
-								{/if}
+					<div class="flex flex-col items-center">
+						<div class="card card-hover variant-ghost-primary w-full">
+							<a href="/videos/{video.videoId}">
+								<img
+									src="https://img.youtube.com/vi/{video.videoId}/maxresdefault.jpg"
+									alt="{video.name} thumbnail"
+								/>
 
 								<div class="p-4">
 									<div class="h3">
@@ -60,7 +42,7 @@
 										{video.description}
 									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				{/each}

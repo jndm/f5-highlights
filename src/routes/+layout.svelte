@@ -48,5 +48,9 @@
 		</button>
 	</div>
 
-	<slot />
+	<div class="flex justify-center w-full">
+		<div class="w-[1600px]">
+			<slot />
+		</div>
+	</div>
 </AppShell>
