@@ -4,18 +4,11 @@ import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { VideoDoc } from '$lib/models/video';
 
-export const load = (async ({ cookies, params }) => {
-	/* 
-	TODO: verify logged in after creating login page
-		const token = cookies.get('firebase-jwt');
-		if (!token) throw redirect(307, '/login');
-		const { user_id } = await verifySessionToken(token);
-		if (!user_id) throw redirect(307, '/login');
-	*/
+export const load = (async ({ locals }) => {
+	if (!locals.user) throw redirect(307, '/login');
 
 	try {
 		const snapshot = await getAdminDb().collection(`dev/videos/video`).get();
-		console.log(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
 		return {
 			videos: snapshot.docs.map((doc) => ({ ...(doc.data() as VideoDoc), id: doc.id }))
 		};
@@ -25,12 +18,8 @@ export const load = (async ({ cookies, params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	createVideo: async ({ cookies, request }) => {
-		const token = cookies.get('firebase-jwt');
-		if (!token) return fail(401);
-
-		const { user_id } = await verifySessionToken(token);
-		if (!user_id) return fail(401);
+	createVideo: async ({ locals, request }) => {
+		if (!locals.user) throw redirect(303, 'login');
 
 		const data = await request.formData();
 

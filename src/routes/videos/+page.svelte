@@ -1,27 +1,21 @@
 <script lang="ts">
 	import AddNewVideoButton from './_components/AddNewVideoButton.svelte';
 	import type { PageData } from './$types';
+	import { userStore } from '$lib/stores/user';
 
 	export let data: PageData;
+	const { videos } = data;
 
-	$: videos = data.videos;
-
-	let selectedVideoId: string | undefined = undefined;
-
-	const onCardClick = (id: string) => {
-		selectedVideoId = id;
-	};
-
-	$: isSelected = (id: string) => {
-		return id === selectedVideoId;
-	};
+	$: isAdmin = $userStore?.isAdmin;
 </script>
 
 <div class="flex flex-col grow items-center gap-y-3 p-4">
-	<div class="flex flex-row justify-between w-full">
-		<h1 class="text-5xl font-bold">Videos</h1>
-		<AddNewVideoButton />
-	</div>
+	{#if isAdmin}
+		<div class="flex flex-row justify-between w-full">
+			<h1 class="text-5xl font-bold">Videos</h1>
+			<AddNewVideoButton />
+		</div>
+	{/if}
 	<div class="w-full">
 		{#if !!videos}
 			<div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">

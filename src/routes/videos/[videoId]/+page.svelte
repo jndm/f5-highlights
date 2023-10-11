@@ -1,26 +1,21 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { page } from '$app/stores';
+	let videoId = $page.params.videoId;
 </script>
 
-{#if data.videoId}
-	<div class="flex flex-row">
-		<div class="flex basis-1/4">
-			<div class="card variant-ghost-primary w-full">muita filmejä</div>
-		</div>
-
-		<div class="flex flex-col items-center basis-3/4">
+{#if videoId}
+	<div class="flex flex-row mt-4">
+		<div class="flex flex-col grow items-center">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<div class="card variant-ghost-primary w-full">
+			<div class="flex flex-col grow card variant-ghost-primary w-full">
 				<iframe
 					id="ytplayer"
 					title={'TODO Pitää hakea nimi tähä'}
-					src="https://www.youtube.com/embed/{data.videoId}?autoplay=0"
+					src="https://www.youtube.com/embed/{videoId}?autoplay=0"
 					frameborder="1"
 					allowfullscreen
-					class="w-full p-4 h-[700px]"
+					class="w-full p-4 h-[720px]"
 				/>
 
 				<div class="p-4">

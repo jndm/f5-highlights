@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
 
-type User = {
-	uid: string;
+export type UserStore = {
 	email: string | null;
+	isAdmin: boolean;
 };
 
-export const userStore = writable<User | null>(null);
+export const userStore = writable<UserStore | null>(null);
