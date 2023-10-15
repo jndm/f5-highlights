@@ -8,7 +8,7 @@
 
 <AppBar>
 	<svelte:fragment slot="lead">
-		<a href="/videos">
+		<a href="/">
 			<div class="flex flex-row font-bold items-center h-10">
 				<IconCat /> F5 Highlights
 			</div>
@@ -22,10 +22,7 @@
 				>
 					<IconCat />
 				</div>
-
 				{username}
-
-				{$userStore.isAdmin}
 			</div>
 		{/if}
 	</svelte:fragment>

@@ -6,6 +6,10 @@ const unauthorizedPaths = ['/login'];
 export const handle: Handle = async ({ event, resolve }) => {
 	const user = await verifyToken(event.cookies);
 
+	if (!!user && event.url.pathname === '/login') {
+		throw redirect(307, '/login');
+	}
+
 	if (unauthorizedPaths.some((x) => x === event.url.pathname)) {
 		const response = await resolve(event);
 		return response;
@@ -19,10 +23,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 		email: user.email!,
 		isAdmin: user.admin!
 	};
-
-	if (event.url.pathname === '/') {
-		throw redirect(303, '/videos');
-	}
 
 	const response = await resolve(event);
 	return response;

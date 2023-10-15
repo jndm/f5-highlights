@@ -1,28 +1,42 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { videoStore } from '$lib/stores/video';
+	import IconLeftArrow from 'virtual:icons/mingcute/arrow-left-fill';
 	let videoId = $page.params.videoId;
+
+	$: video = $videoStore?.find((x) => x.videoId === videoId);
 </script>
 
-{#if videoId}
+{#if video}
 	<div class="flex flex-row mt-4">
 		<div class="flex flex-col grow items-center">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<div class="flex flex-col grow card w-[1312px]">
-				<iframe
-					id="ytplayer"
-					title={'TODO Pitää hakea nimi tähä'}
-					src="https://www.youtube.com/embed/{videoId}?autoplay=0"
-					frameborder="1"
-					allowfullscreen
-					class="w-full h-[720px]"
-				/>
+			<div class="flex flex-col">
+				<div>
+					<a class="h2 font-bold flex flex-row" href="/">
+						<div class="text-primary-500">
+							<IconLeftArrow />
+						</div>
+						Takaisin
+					</a>
+				</div>
+				<div class="grow card w-[1280px]">
+					<iframe
+						id="ytplayer"
+						title={video.name}
+						src="https://www.youtube.com/embed/{video.videoId}?autoplay=1"
+						frameborder="1"
+						allowfullscreen
+						class="w-full h-[720px]"
+					/>
 
-				<hr class="!border-t-2 m-4 variant-filled-primary" />
+					<hr class="!border-t-2 m-4 variant-filled-primary" />
 
-				<div class="card-footer">
-					<h2 class="h2 font-weight-700">TODO: NIMI</h2>
-					<div>TODO DESC</div>
+					<div class="card-footer">
+						<h3 class="h3">{video.name}</h3>
+						<div>{video.description}</div>
+					</div>
 				</div>
 			</div>
 		</div>

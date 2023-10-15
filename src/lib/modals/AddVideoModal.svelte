@@ -36,17 +36,18 @@
 		return async ({ result, update }) => {
 			if (result.type === 'success') {
 				toastStore.trigger({
-					message: '✅ Video saved successfully',
+					message: '✅ Video tallennettu',
 					timeout: 3000,
 					background: 'variant-filled-primary',
 					hideDismiss: true
 				});
 
 				modalStore.close();
+
 				await update();
 			} else {
 				toastStore.trigger({
-					message: '🚫 Failed to save video',
+					message: '🚫 Tallennus kusahti',
 					timeout: 3000,
 					background: 'variant-filled-error',
 					hideDismiss: true
@@ -57,9 +58,9 @@
 </script>
 
 <div class="card p-4 w-modal shadow-xl space-y-4">
-	<header class="text-2xl font-bold">ADD NEW VIDEO</header>
+	<header class="text-2xl font-bold">Lisää uusi video</header>
 
-	<article>To add new video, fill in bit of info for video and youtube video id.</article>
+	<article>Syötä vaaditut datat sekä lisää youtube video id (löytyy videon urlista).</article>
 
 	<form
 		class="flex flex-col gap-y-2"
@@ -69,7 +70,7 @@
 	>
 		<div>
 			<label class="label">
-				Name <span class="font-bold">*</span>
+				Nimi <span class="font-bold">*</span>
 				<input
 					name="name"
 					class:input={true}
@@ -81,12 +82,12 @@
 				/>
 			</label>
 			{#if form?.errors?.name?.required}
-				<div class="text-xs text-red-700">Name is required</div>
+				<div class="text-xs text-red-700">Name on pakko syöttää</div>
 			{/if}
 		</div>
 
 		<label class="label">
-			Description
+			Kuvaus
 			<input
 				name="description"
 				class="input"
@@ -110,13 +111,15 @@
 				/>
 			</label>
 			{#if form?.errors?.videoId?.required}
-				<div class="text-xs text-red-700">Video Id is required</div>
+				<div class="text-xs text-red-700">Video Id on pakko syöttää</div>
 			{/if}
 		</div>
 
 		<footer class="flex justify-end gap-x-4">
-			<button class="btn variant-ringed-primary" on:click={modalStore.close}> Cancel </button>
-			<button class="btn variant-filled-primary">Add</button>
+			<button class="btn variant-ringed-primary" on:click={modalStore.close}>
+				Peruuta
+			</button>
+			<button class="btn variant-filled-primary">Lisää</button>
 		</footer>
 	</form>
 </div>

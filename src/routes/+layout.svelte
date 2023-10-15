@@ -8,7 +8,7 @@
 	initializeStores();
 
 	export let data: LayoutData;
-	userStore.set(data);
+	userStore.set(data.user);
 </script>
 
 <Toast class="z-[1000]" />

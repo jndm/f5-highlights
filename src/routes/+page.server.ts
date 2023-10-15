@@ -1,21 +1,22 @@
 import { getAdminDb } from '$lib/firebase/firebase-admin';
 import type { CreateVideoErrors } from '$lib/models/form-models';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
 import type { VideoDoc } from '$lib/models/video';
 
-export const load = (async ({ locals }) => {
+export const load = async ({ locals }) => {
 	if (!locals.user) throw redirect(307, '/login');
 
+	console.log('load');
+	let videos: VideoDoc[] = [];
 	try {
 		const snapshot = await getAdminDb().collection(`dev/videos/video`).get();
-		return {
-			videos: snapshot.docs.map((doc) => ({ ...(doc.data() as VideoDoc), id: doc.id }))
-		};
+		videos = snapshot.docs.map((doc) => ({ ...(doc.data() as VideoDoc), id: doc.id }));
 	} catch (err) {
 		console.error(err);
 	}
-}) satisfies PageServerLoad;
+
+	return { videos };
+};
 
 export const actions = {
 	createVideo: async ({ locals, request }) => {

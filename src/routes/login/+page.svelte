@@ -17,7 +17,7 @@
 				isAdmin: user.isAdmin
 			});
 
-			goto('/videos');
+			goto('/');
 		} else {
 			userStore.set(null);
 		}
@@ -26,13 +26,14 @@
 
 <div class="flex flex-col my-12 gap-4 items-center grow">
 	<div>
-		<h1 class="h1">Login</h1>
-		<p class="my-3">To see ebin gameplay you must first login.</p>
-		<p>{$userStore?.email}</p>
+		<h1 class="h1">Kirjaudu sisään</h1>
+		<p class="my-3">
+			Valitettavasti näin laadukasta kontsaa joutuu suojaamaan kirjautumisen taakse.
+		</p>
 	</div>
 	<div>
 		<button class="btn variant-filled-primary" on:click={login}>
-			<span>Login</span>
+			<span>Kirjaudu</span>
 		</button>
 	</div>
 </div>
