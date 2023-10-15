@@ -8,18 +8,20 @@
 		<div class="flex flex-col grow items-center">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<div class="flex flex-col grow card variant-ghost-primary w-full">
+			<div class="flex flex-col grow card w-[1312px]">
 				<iframe
 					id="ytplayer"
 					title={'TODO Pitää hakea nimi tähä'}
 					src="https://www.youtube.com/embed/{videoId}?autoplay=0"
 					frameborder="1"
 					allowfullscreen
-					class="w-full p-4 h-[720px]"
+					class="w-full h-[720px]"
 				/>
 
-				<div class="p-4">
-					<div class="h3">TODO: NIMI</div>
+				<hr class="!border-t-2 m-4 variant-filled-primary" />
+
+				<div class="card-footer">
+					<h2 class="h2 font-weight-700">TODO: NIMI</h2>
 					<div>TODO DESC</div>
 				</div>
 			</div>

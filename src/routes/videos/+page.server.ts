@@ -1,4 +1,4 @@
-import { verifySessionToken, getAdminDb } from '$lib/firebase/firebase-admin';
+import { getAdminDb } from '$lib/firebase/firebase-admin';
 import type { CreateVideoErrors } from '$lib/models/form-models';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';

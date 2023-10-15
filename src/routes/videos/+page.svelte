@@ -21,17 +21,19 @@
 			<div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
 				{#each videos as video}
 					<div class="flex flex-col items-center">
-						<div class="card card-hover variant-ghost-primary w-full">
+						<div class="card card-hover w-full">
 							<a href="/videos/{video.videoId}">
 								<img
 									src="https://img.youtube.com/vi/{video.videoId}/maxresdefault.jpg"
 									alt="{video.name} thumbnail"
 								/>
 
-								<div class="p-4">
-									<div class="h3">
+								<hr class="!border-t-2 m-2" />
+
+								<div class="card-footer">
+									<h3 class="h3">
 										{video.name}
-									</div>
+									</h3>
 									<div>
 										{video.description}
 									</div>

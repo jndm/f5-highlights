@@ -110,7 +110,7 @@
 				/>
 			</label>
 			{#if form?.errors?.videoId?.required}
-				<div class="text-xs text-red-700">'Video Id is required'</div>
+				<div class="text-xs text-red-700">Video Id is required</div>
 			{/if}
 		</div>
 
