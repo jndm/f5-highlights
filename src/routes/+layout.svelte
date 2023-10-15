@@ -7,9 +7,7 @@
 	import { userStore } from '$lib/stores/user';
 	initializeStores();
 
-	console.log('layout updated');
 	export let data: LayoutData;
-
 	userStore.set(data);
 </script>
 

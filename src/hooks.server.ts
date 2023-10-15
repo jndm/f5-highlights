@@ -20,6 +20,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 		isAdmin: user.admin!
 	};
 
+	if (event.url.pathname === '/') {
+		throw redirect(303, '/videos');
+	}
+
 	const response = await resolve(event);
 	return response;
 };
