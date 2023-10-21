@@ -7,7 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const user = await verifyToken(event.cookies);
 
 	if (!!user && event.url.pathname === '/login') {
-		throw redirect(307, '/login');
+		throw redirect(307, '/');
 	}
 
 	if (unauthorizedPaths.some((x) => x === event.url.pathname)) {

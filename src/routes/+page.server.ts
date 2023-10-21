@@ -2,14 +2,14 @@ import { getAdminDb } from '$lib/firebase/firebase-admin';
 import type { CreateVideoErrors } from '$lib/models/form-models';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type { VideoDoc } from '$lib/models/video';
+import { FIREBASE_VIDEO_COLLECTION_PATH } from '$env/static/private';
 
 export const load = async ({ locals }) => {
 	if (!locals.user) throw redirect(307, '/login');
 
-	console.log('load');
 	let videos: VideoDoc[] = [];
 	try {
-		const snapshot = await getAdminDb().collection(`dev/videos/video`).get();
+		const snapshot = await getAdminDb().collection(FIREBASE_VIDEO_COLLECTION_PATH).get();
 		videos = snapshot.docs.map((doc) => ({ ...(doc.data() as VideoDoc), id: doc.id }));
 	} catch (err) {
 		console.error(err);
@@ -43,7 +43,7 @@ export const actions = {
 		}
 
 		try {
-			const doc = await getAdminDb().collection(`dev/videos/video`).add({
+			const doc = await getAdminDb().collection(FIREBASE_VIDEO_COLLECTION_PATH).add({
 				name,
 				description,
 				videoId,

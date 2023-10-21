@@ -1,9 +1,6 @@
+import { FIREBASE_ADMIN_EMAIL } from '$env/static/private';
 import { addAdminClaim, createSessionCookie, verifyIdToken } from '$lib/firebase/firebase-admin';
 import { json } from '@sveltejs/kit';
-
-const adminlist = [
-	'nosp2EvJ3iYAywwgynZ8TrkYOK63' // jndm
-];
 
 export async function POST({ request, cookies }) {
 	const authHeader = request.headers.get('Authorization');
@@ -22,7 +19,8 @@ export async function POST({ request, cookies }) {
 
 	const sessionCookie = await createSessionCookie(token, 1209600); // 2 weeks
 
-	if (adminlist.includes(user.uid)) {
+	// Only one admin for now
+	if (FIREBASE_ADMIN_EMAIL === user.uid) {
 		await addAdminClaim(user.uid);
 		user.isAdmin = true;
 	}
