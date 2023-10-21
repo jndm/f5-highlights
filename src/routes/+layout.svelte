@@ -20,7 +20,7 @@
 	</svelte:fragment>
 
 	<div class="flex justify-center h-full w-full">
-		<div class="w-[1600px]">
+		<div class="container px-6">
 			<slot />
 		</div>
 	</div>
