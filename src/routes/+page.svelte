@@ -25,7 +25,7 @@
 				{#each $videoStore as video}
 					<div class="flex flex-col items-center">
 						<div class="card card-hover w-full h-full">
-							<a href="/videos/{video.videoId}">
+							<a href="/videos/{video.id}">
 								<div class="flex flex-col h-full">
 									<div class="flex justify-center h-full basis-5/6">
 										<img

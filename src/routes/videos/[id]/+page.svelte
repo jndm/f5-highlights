@@ -2,8 +2,11 @@
 	import { page } from '$app/stores';
 	import { videoStore } from '$lib/stores/video';
 	import IconLeftArrow from 'virtual:icons/mingcute/arrow-left-fill';
-	let videoId = $page.params.videoId;
-	$: video = $videoStore?.find((x) => x.videoId === videoId);
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+
+	$: video = data.video;
 </script>
 
 {#if video}
