@@ -3,6 +3,11 @@ import { addAdminClaim, createSessionCookie } from '$lib/firebase/firebase-admin
 import { signIn } from '$lib/firebase/firebase-auth';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type { UserCredential } from 'firebase/auth';
+import type { PageServerLoad } from '../$types';
+
+export const load = (async ({ locals }) => {
+	if (locals.user) throw redirect(303, '/');
+}) satisfies PageServerLoad;
 
 export const actions = {
 	login: async ({ cookies, request }) => {
@@ -22,14 +27,14 @@ export const actions = {
 			return fail(401);
 		}
 
-		const user = { uid: userCredential.user.uid, email, isAdmin: false };
+		const user = { uid: userCredential.user.uid, email: email.toString(), isAdmin: false };
 
 		const token = await userCredential.user.getIdToken();
 
 		const sessionCookie = await createSessionCookie(token, 1209600); // 2 weeks
 
 		// Only one admin for now, for more would prob need to add firebase docs for auth roles but can't be bothered
-		if (FIREBASE_ADMIN_EMAIL === user.uid) {
+		if (FIREBASE_ADMIN_EMAIL === user.email) {
 			await addAdminClaim(user.uid);
 			user.isAdmin = true;
 		}
@@ -42,6 +47,6 @@ export const actions = {
 			path: '/'
 		});
 
-		throw redirect(301, '/');
+		return { user };
 	}
 } satisfies Actions;

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { userStore } from '$lib/stores/user';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
@@ -18,7 +20,11 @@
 		}
 
 		return async ({ result, update }) => {
-			if (result.type === 'redirect') {
+			if (result.type === 'success') {
+				const user = result.data?.user;
+
+				userStore.set(user);
+
 				toastStore.trigger({
 					message: '✅ Ja nauttimaan laatu kontentinsta',
 					timeout: 3000,
@@ -27,6 +33,8 @@
 				});
 
 				await update();
+
+				goto('/');
 			} else {
 				toastStore.trigger({
 					message: '🚫 Valitettavasti tällä kertaa jää kontent väliin',

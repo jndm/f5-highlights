@@ -3,7 +3,6 @@
 	import { videoStore } from '$lib/stores/video';
 	import IconLeftArrow from 'virtual:icons/mingcute/arrow-left-fill';
 	let videoId = $page.params.videoId;
-
 	$: video = $videoStore?.find((x) => x.videoId === videoId);
 </script>
 
