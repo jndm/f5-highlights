@@ -14,7 +14,7 @@
 		form.errors = {};
 	};
 
-	const handleSubmit: SubmitFunction = ({ formElement, formData, action, cancel, submitter }) => {
+	const handleSubmit: SubmitFunction = ({ formData, cancel }) => {
 		const { name, videoId } = Object.fromEntries(formData);
 
 		let validationFailed = false;
